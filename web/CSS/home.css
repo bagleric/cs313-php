@@ -15,10 +15,10 @@ img:hover{
 }
 
 #aboutInfo{
-    top:3em;
+    margin-top: 3em;
     background-color:;
-    overflow: hidden;
     position: relative;
+    overflow: hidden
 }
 #assigments{
     background-color:dodgerblue;
@@ -29,6 +29,7 @@ img:hover{
     background-color:aliceblue;
     width:100vw;
     z-index: 500;
+    top:0;
 
 }
 .padding{
@@ -41,7 +42,7 @@ img:hover{
 
 .section{
     position: relative;
-    margin-bottom: 1em;
+    margin: 1em;
     min-height: 10em;
 }
 .fix-margin{
@@ -56,6 +57,11 @@ footer{
 }
 
 .grow-text:hover{
-    font-size: 10vw;
+    font-size: 50px;
     transition: .5s ease;
+}
+
+.hide-overflow{
+        overflow: hidden;
+
 }
