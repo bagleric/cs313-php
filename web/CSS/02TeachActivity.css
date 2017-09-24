@@ -1,0 +1,13 @@
+body{
+    font-family: sans-serif;
+}
+.divRow :hover{
+    font-weight: bold;
+}
+button{
+    color: aliceblue;
+    background-color: darkblue;
+    width:auto;
+    height:auto;  
+    border: none;
+}
