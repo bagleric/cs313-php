@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>03 Teach</title>
+</head>
+
+<body>
+    <form action="03Teach.php" method="post">
+        <div>Name:
+            <input type="text" name="name" value="Eric"> </div>
+        <div>Email:
+            <input type="text" name="email" value="bagleric@outlook.com"> </div>
+        <div>Major:
+            <ul>
+                <li>
+                    <input type="radio" name="major" value="CS" checked>Computer Science</li>
+                <li>
+                    <input type="radio" name="major" value="WD">Web Design and Development </li>
+                <li>
+                    <input type="radio" name="major" value="CIT"> Computer information Technology </li>
+                <li>
+                    <input type="radio" name="major" value="CE"> Computer Engineering </li>
+            </ul>
+        </div>
+        <div> Have you ever visited any of the following continents?
+            <input type="checkbox" name="continent" value="North America">North America
+            <input type="checkbox" name="continent" value="South America">South America
+            <input type="checkbox" name="continent" value="Europe">Europe
+            <input type="checkbox" name="continent" value="Asia">Asia
+            <input type="checkbox" name="continent" value="Australia">Australia
+            <input type="checkbox" name="continent" value="Africa">Africa
+            <input type="checkbox" name="continent" value="Antartica">Antartica </div>
+        <div>Comments:
+            <textarea name="comments">Hello</textarea>
+        </div>
+        <input type="submit" value="Submit"> </form>
+</body>
+
+</html>
