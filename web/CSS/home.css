@@ -21,8 +21,12 @@ img:hover{
     overflow: hidden
 }
 #assigments{
-    background-color:dodgerblue;
-    color:white;
+    background-color:white;
+    color:dodgerblue;
+    text-decoration-color: white;
+}
+li{
+    color: white;
 }
 .navBar{
     position:fixed;
@@ -65,3 +69,7 @@ footer{
         overflow: hidden;
 
 }
+.white{
+    color: white;
+}
+
