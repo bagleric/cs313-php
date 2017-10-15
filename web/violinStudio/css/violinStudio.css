@@ -1,0 +1,18 @@
+.big-square {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    background-color: darkred;
+    color: white;
+    border-radius: 5px;
+}
+
+.primary-color {
+    background-color: darkred;
+    color: white;
+}
+
+.railroad-border{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
