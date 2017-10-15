@@ -97,7 +97,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
     $id = $row['id'];
     $practicing = false;
         foreach ($db->query('SELECT student, practice_date, practice_time, comments FROM practice_records;') as $row2){
-            if($id == $row2['students']){
+            if($id == $row2['student']){
                  echo "<div>";
                 echo "<p>" ;
                 echo "Date: " . $row2['practice_date'] . " Time Practiced: " . $row2['practice_time']. " Comments: " . $row2['comments'];
