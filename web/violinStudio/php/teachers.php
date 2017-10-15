@@ -87,7 +87,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                         <div id="updateStudentProgress" class="collapse" role="tabpanel">
                             <p class="mb-3">
                                 <?php                           
-    foreach ($db->query('SELECT id, first_name, last_name, student_level FROM student') as $row)
+    foreach ($db->query('SELECT id, first_name, last_name, music_level FROM student') as $row)
 {
     echo '<div class="railroad-border">';
         echo '<p class="mb-3">';
