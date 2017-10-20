@@ -4,7 +4,6 @@
     padding: 10px;
     background-color: darkred;
     color: white;
-    border-radius: 5px;
 }
 
 .primary-color {
@@ -12,7 +11,23 @@
     color: white;
 }
 
-.railroad-border{
+.railroad-border {
     border-bottom: 1px solid black;
     border-top: 1px solid black;
 }
+
+.banner-img {
+    width: 100%;
+}
+
+.banner {
+    max-height: 400px;
+}
+
+.primary-text{
+}
+a:link, a:visited {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
