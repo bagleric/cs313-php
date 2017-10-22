@@ -27,7 +27,7 @@ session_start();
                     <li class="nav-item"> <a class="nav-link" href="./resources.php">Resources</a> </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
-                    <li class="nav-item navbar-right"> <a class="nav-link" href="../html/signIn.html">Sign In</a> </li>
+                    <li class="nav-item navbar-right"> <a class="nav-link" href="signIn.php">Sign In</a> </li>
                 </ul>
             </div>
         </nav>

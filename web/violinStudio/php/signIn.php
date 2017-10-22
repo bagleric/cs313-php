@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(empty($_SESSION["authenticated"]) || $_SESSION["authenticated"] != 'true') {
-    header('Location: login.php');
+if(isset($_SESSION["authenticated"]) && $_SESSION["authenticated"] == 'true') {
+    header('Location: teachers.php');
 }
 ?>
     <!DOCTYPE html>
@@ -18,16 +18,16 @@ if(empty($_SESSION["authenticated"]) || $_SESSION["authenticated"] != 'true') {
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="../index.html">De Violín | Teacher Login</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="../index.php">De Violín | Teacher Login</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item "> <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="#">Philosophy</a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="#">Events</a> </li>
+                    <li class="nav-item "> <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="../php/philosophy.php">Philosophy</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="../php/events.php">Events</a> </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
-                    <li class="nav-item navbar-right"> <a class="active nav-link" href="../html/signIn.html">Sign In</a> </li>
+                    <li class="nav-item navbar-right"> <a class="active nav-link" href="./signIn.php">Sign In</a> </li>
                 </ul>
             </div>
         </nav>

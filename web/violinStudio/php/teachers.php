@@ -2,37 +2,24 @@
 
 session_start();
 
-$email = $_POST["email"];
-$password = $_POST["pass"];
-
-if($email == null || $password == null){
-    header("Location: ../html/signIn.html");
-    die();
+if(!isset($_SESSION["authenticated"])) {
+    header('Location: signin.php');
 }
 
-// default Heroku Postgres configuration URL
-$dbUrl = getenv('DATABASE_URL');
+if(!isset($_SESSION["authenticated"])){
+    $email = $_POST["email"];
+    $password = $_POST["pass"];
 
-
-$dbopts = parse_url($dbUrl);
-
-
-$dbHost = $dbopts["host"];
-$dbPort = $dbopts["port"];
-$dbUser = $dbopts["user"];
-$dbPassword = $dbopts["pass"];
-$dbName = ltrim($dbopts["path"],'/');
-
-
-
-try {
- $db = new PDO("pgsql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPassword);
+    if($email == null || $password == null) {
+        header("Location: signIn.php");
+        die();
+    }
 }
-catch (PDOException $ex) {
- print "<p>error: $ex->getMessage() </p>\n\n";
- die();
-}         
+
+require("dbconnect.php");
+$db = get_db();    
  
+if(!isset($_SESSION["authenticated"])){
 foreach($db->query('SELECT email, user_password FROM teacher') as $check){
     if($email != $check['email']){
         echo "You entered an incorrect email address: " . $email;
@@ -43,7 +30,8 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
         die();
         }
 }
-
+}
+$_SESSION["authenticated"] = true;
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -59,7 +47,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
     </head>
 
     <body>
-        <nav class=" navbar navbar-expand-lg navbar-light bg-light "> <a class="navbar-brand" href="../index.html">De Violín | Maestro</a>
+        <nav class=" navbar navbar-expand-lg navbar-light bg-light "> <a class="navbar-brand" href="../index.php">De Violín | Maestro</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -69,16 +57,16 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                     <!--                    <li class="nav-item"> <a class="nav-link" href="#">Students</a> </li>-->
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
-                    <li class="nav-item"> <a class="nav-link" href="../index.html">Studio Home</a> </li>
-                    <!--                    <li class="nav-item navbar-right"> <a class="nav-link" href="#">Sign Out</a> </li>-->
-                    <!--                    TODO// how do you do a sign out?-->
+                    <li class="nav-item"> <a class="nav-link" href="../index.php">Studio Home</a> </li>
+                    <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php">Sign Out</a> </li>
                 </ul>
             </div>
         </nav>
         <div class="container">
             <div class="row">
                 <div id="updateOptions" data-children=".item">
-                    <div class="item">
+                    <div class="item big-square">
+                       
                         <a data-toggle="collapse" data-parent="#updateOptions" href="#updateStudentProgress" aria-expanded="false" aria-controls="updateStudentProgress">
                             <h5 class="display-4">View Student Progress</h5> </a>
                         <div id="updateStudentProgress" class="collapse" role="tabpanel">
@@ -88,7 +76,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
 {
     echo '<div class="railroad-border">';
         echo '<p class="mb-3">';
-            echo '<strong>' .$row['first_name'] . " " . $row['last_name'] . "</strong> : Level - " . $row['student_level'];
+            echo '<strong>' .$row['first_name'] . " " . $row['last_name'] . "</strong> : Level - " . $row['music_level'];
         echo "</p>";
         echo "<p> Practice Records </p>";
     $id = $row['id'];
@@ -119,22 +107,22 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                             <p class="mb-3"> </p> //TODO Update the Philosophy </div>
                     </div>
 -->
-                    <div class="item">
+                    <div class="item big-square">
                         <a data-toggle="collapse" data-parent="#updateOptions" href="#updateEvents" aria-expanded="false" aria-controls="updateOptions">
                             <h5 class="display-4">Create Events</h5> </a>
                         <div id="updateEvents" class="collapse" role="tabpanel">
                             <p class="mb-3"> </p>
-                            <form method="post" action="">
+                            <form method="post" action="submitEvent.php">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Event Name</label>
-                                    <input type="text" class="form-control" id="eventName" placeholder="Event name"> </div>
+                                    <input type="text" class="form-control" id="eventName" name="eventName" placeholder="Event name"> </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Start Time</label>
-                                    <input type="text" class="form-control" id="startTime" placeholder="HH:MM">
+                                    <input type="text" class="form-control" id="startTime" name="startTime" placeholder="HH:MM">
                                     <label for="exampleFormControlInput1">End Time</label>
-                                    <input type="text" class="form-control" id="endTime" placeholder="HH:MM">
+                                    <input type="text" class="form-control" id="endTime" name="endTime" placeholder="HH:MM">
                                     <label for="monthSelect">Select Month</label>
-                                    <select class="form-control" id="monthSelect">
+                                    <select class="form-control" id="monthSelect" name="month">
                                         <option>January</option>
                                         <option>February</option>
                                         <option>March</option>
@@ -151,57 +139,57 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                                 </div>
                                 <div class="form-group">
                                     <label for="daySelect">Select day</label>
-                                    <select class="form-control" id="daySelect">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                        <option>15</option>
-                                        <option>16</option>
-                                        <option>17</option>
-                                        <option>18</option>
-                                        <option>19</option>
-                                        <option>20</option>
-                                        <option>21</option>
-                                        <option>22</option>
-                                        <option>23</option>
-                                        <option>24</option>
-                                        <option>25</option>
-                                        <option>26</option>
-                                        <option>27</option>
-                                        <option>28</option>
-                                        <option>29</option>
-                                        <option>30</option>
-                                        <option>31</option>
+                                    <select class="form-control" id="daySelect" name="day">
+                                        <option value="1">1 </option>
+                                        <option value="2">2 </option>
+                                        <option value="3">3 </option>
+                                        <option value="4">4 </option>
+                                        <option value="5">5 </option>
+                                        <option value="6">6 </option>
+                                        <option value="7">7 </option>
+                                        <option value="8">8 </option>
+                                        <option value="9">9 </option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="yearSelect">Select Year</label>
-                                    <select class="form-control" id="yearSelect">
-                                        <option>2017</option>
-                                        <option>2018</option>
-                                        <option>2019</option>
-                                        <option>2020</option>
-                                        <option>2021</option>
-                                        <option>2022</option>
-                                        <option>2023</option>
-                                        <option>2024</option>
-                                        <option>2025</option>
+                                    <select class="form-control" id="yearSelect" name="year">
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="eventDescription">Event Description</label>
-                                    <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                                    <textarea class="form-control" id="eventDescription" rows="3" name="description"></textarea>
                                 </div>
                                 <button type="submit" class="btn">Create Event</button>
                             </form>
