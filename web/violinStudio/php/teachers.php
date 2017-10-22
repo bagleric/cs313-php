@@ -3,7 +3,7 @@
 session_start();
 
 if(!isset($_SESSION["authenticated"])) {
-    header('Location: signin.php');
+    header('Location: signIn.php');
 }
 
 if(!isset($_SESSION["authenticated"])){
