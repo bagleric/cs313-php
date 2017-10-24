@@ -18,20 +18,26 @@ if(!isset($_SESSION["authenticated"])){
 
 require("dbconnect.php");
 $db = get_db();    
- 
+
 if(!isset($_SESSION["authenticated"])){
 foreach($db->query('SELECT email, user_password FROM teacher') as $check){
-    if($email != $check['email']){
-        echo "You entered an incorrect email address: " . $email;
-        die();
+    if($email == $check['email']){
+        if(password_verify($password, $check['user_password'])){
+            echo 'it worked';
+            $_SESSION["authenticated"] = true;
+            $_SESSION["username"] = $email;
         }
-    if($password != $check['user_password']){
-        echo "You entered an incorrect password.";
-        die();
+        else{
+            echo 'it failed';
+            die();
         }
+        }
+    
+    
+
 }
 }
-$_SESSION["authenticated"] = true;
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -59,6 +65,7 @@ $_SESSION["authenticated"] = true;
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="../index.php">Studio Home</a> </li>
                     <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php">Sign Out</a> </li>
+                    <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php"><?php echo $_SESSION["username"];?></a> </li>
                 </ul>
             </div>
         </nav>

@@ -44,7 +44,7 @@ session_start();
 	// Go through each result
 	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
-    echo '<div class="col-md-5 big-square"><p><strong>' . $row['name']. ' - ' . $row['event_date'] . '</strong></p> <p>' . $row['description'] . '</p></div>';
+    echo '<div class="col-md-5 big-square"><p><strong>' . $row['name']. ' - ' . $row['event_date'] . '</strong></p><p>' . $row['description']. '</p></div>';
 	}
 }
 catch (PDOException $ex)
