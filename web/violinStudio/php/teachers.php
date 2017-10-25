@@ -92,7 +92,7 @@ $db = get_db();
                             <h5 class="display-4">Create Events</h5> </a>
                         <div id="updateEvents" class="collapse" role="tabpanel">
                             <p class="mb-3"> </p>
-                            <form method="post" action="submitEvent.php">
+                            <form method="post" action="eventSubmit.php">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Event Name</label>
                                     <input type="text" class="form-control" required id="eventName" name="eventName" placeholder="Event name"> </div>
