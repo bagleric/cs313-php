@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION["authenticated"]) && $_SESSION["authenticated"] == true) {
-    header('Location: teachers.php');
+    header('Location: authenticate.php');
 }
 ?>
     <!DOCTYPE html>
@@ -34,7 +34,7 @@ if(isset($_SESSION["authenticated"]) && $_SESSION["authenticated"] == true) {
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div>
-                    <form method="post" action="../php/teachers.php">
+                    <form method="post" action="authenticate.php">
                         <div class="form-group">
                             <label for="inputEmail">Email address</label>
                             <input type="email" class="form-control" id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email"> <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> </div>

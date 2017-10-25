@@ -2,41 +2,13 @@
 
 session_start();
 
-if(!isset($_SESSION["authenticated"])) {
+if(!isset($_SESSION["authenticated"]) || $_SESSION["authenticated"] != true) {
     header('Location: signIn.php');
-}
-
-if(!isset($_SESSION["authenticated"])){
-    $email = $_POST["email"];
-    $password = $_POST["pass"];
-
-    if($email == null || $password == null) {
-        header("Location: signIn.php");
-        die();
-    }
+    die();
 }
 
 require("dbconnect.php");
-$db = get_db();    
-
-if(!isset($_SESSION["authenticated"])){
-foreach($db->query('SELECT email, user_password FROM teacher') as $check){
-    if($email == $check['email']){
-        if(password_verify($password, $check['user_password'])){
-            echo 'it worked';
-            $_SESSION["authenticated"] = true;
-            $_SESSION["username"] = $email;
-        }
-        else{
-            echo 'it failed';
-            die();
-        }
-        }
-    
-    
-
-}
-}
+$db = get_db();
 
 ?>
     <!DOCTYPE html>
@@ -65,15 +37,16 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="../index.php">Studio Home</a> </li>
                     <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php">Sign Out</a> </li>
-                    <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php"><?php echo $_SESSION["username"];?></a> </li>
                 </ul>
             </div>
         </nav>
         <div class="container">
+            <div class="navbar-right">
+                <?php echo "Welcome ". $_SESSION["email"];?>
+            </div>
             <div class="row">
                 <div id="updateOptions" data-children=".item">
                     <div class="item big-square">
-                       
                         <a data-toggle="collapse" data-parent="#updateOptions" href="#updateStudentProgress" aria-expanded="false" aria-controls="updateStudentProgress">
                             <h5 class="display-4">View Student Progress</h5> </a>
                         <div id="updateStudentProgress" class="collapse" role="tabpanel">
@@ -122,14 +95,14 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                             <form method="post" action="submitEvent.php">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Event Name</label>
-                                    <input type="text" class="form-control" id="eventName" name="eventName" placeholder="Event name"> </div>
+                                    <input type="text" class="form-control" required id="eventName" name="eventName" placeholder="Event name"> </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Start Time</label>
                                     <input type="text" class="form-control" id="startTime" name="startTime" placeholder="HH:MM">
                                     <label for="exampleFormControlInput1">End Time</label>
                                     <input type="text" class="form-control" id="endTime" name="endTime" placeholder="HH:MM">
                                     <label for="monthSelect">Select Month</label>
-                                    <select class="form-control" id="monthSelect" name="month">
+                                    <select class="form-control" required id="monthSelect" name="month">
                                         <option>January</option>
                                         <option>February</option>
                                         <option>March</option>
@@ -146,7 +119,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                                 </div>
                                 <div class="form-group">
                                     <label for="daySelect">Select day</label>
-                                    <select class="form-control" id="daySelect" name="day">
+                                    <select class="form-control" required id="daySelect" name="day">
                                         <option value="1">1 </option>
                                         <option value="2">2 </option>
                                         <option value="3">3 </option>
@@ -182,7 +155,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                                 </div>
                                 <div class="form-group">
                                     <label for="yearSelect">Select Year</label>
-                                    <select class="form-control" id="yearSelect" name="year">
+                                    <select class="form-control" required id="yearSelect" name="year">
                                         <option value="2017">2017</option>
                                         <option value="2018">2018</option>
                                         <option value="2019">2019</option>
@@ -196,7 +169,7 @@ foreach($db->query('SELECT email, user_password FROM teacher') as $check){
                                 </div>
                                 <div class="form-group">
                                     <label for="eventDescription">Event Description</label>
-                                    <textarea class="form-control" id="eventDescription" rows="3" name="description"></textarea>
+                                    <textarea class="form-control" required id="eventDescription" rows="3" name="description"></textarea>
                                 </div>
                                 <button type="submit" class="btn">Create Event</button>
                             </form>

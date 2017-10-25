@@ -4,6 +4,7 @@ require ("dbconnect.php");
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <title>Document</title>
@@ -17,19 +18,20 @@ require ("dbconnect.php");
     <body>
         <div class="row d-flex justify-content-center">
             <div>
-                <form method="post" action="authenticate.php">
+                <form method="post" action="generateLogin.php">
                     <div class="form-group">
                         <label for="inputEmail">Email address</label>
-                        <input type="email" class="form-control" id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email"> <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> </div>
+                        <input type="email" class="form-control" required id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
                     <div class="form-group">
                         <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="inputPassword" name="pass" placeholder="Password"> </div>
+                        <input type="password" class="form-control" required id="inputPassword" name="pass" placeholder="Password"> </div>
                     <div>
                         <label for="inputPassword">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="first Name"> </div>
+                        <input type="text" class="form-control" id="firstName" required name="firstName" placeholder="first Name"> </div>
                     <div>
                         <label for="inputPassword">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"> </div>
+                        <input type="text" class="form-control" id="lastName" required name="lastName" placeholder="Last Name"> </div>
                     <button type="submit" class="btn primary-color">Create Login</button>
                 </form>
             </div>
