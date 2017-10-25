@@ -8,24 +8,11 @@ $day = $_POST['day'];
 $year = $_POST['year'];
 $preDescription = $_POST['description'];
 
-echo "day=$day";
-echo "month=$month";
-echo "year=$year";
-
-
 $eventDate = "$year-$month-$day"; 
 $description = $startTime . '-' . $endTime . '<br/>' . $preDescription;
 
-
- echo "eventName=$eventName\n";
- echo "startTime-EndTime=$startTime - $endTime \n";
- echo "date=$eventDate\n";
- echo "description=$description\n";
-
-
-
 // TODO put additional checks here to verify that all this data is actually provided
-require("dbConnect.php");
+require("dbconnect.php");
 $db = get_db();
 
 try
@@ -40,8 +27,7 @@ try
 	$statement->bindValue(':event_date', $eventDate);
 	$statement->bindValue(':description', $description);
 	$result = $statement->execute();
-    echo "/n trying to execute - $result";
-    
+   
 }
 catch (Exception $ex)
 {
@@ -51,8 +37,7 @@ catch (Exception $ex)
 	die();
 }
 // finally, redirect them to a new page to actually show the topics
-//header("Location: teachers.php");
-echo "this is the database";
+header("Location: teachers.php");
 die(); // we always include a die after redirects. In this case, there would be no
        // harm if the user got the rest of the page, because there is nothing else
        // but in general, there could be things after here that we don't want them
