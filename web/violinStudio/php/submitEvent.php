@@ -32,14 +32,15 @@ try
 {
 	// Add the Scripture
 	// We do this by preparing the query with placeholder values
-	$query = ' INSERT INTO studio_events(name, event_date, description) VALUES (:name, :event_date, :description)';
+	$query = 'INSERT INTO studio_events(name, event_date, description) VALUES (:name, :event_date, :description)';
 	$statement = $db->prepare($query);
 	// Now we bind the values to the placeholders. This does some nice things
 	// including sanitizing the input with regard to sql commands.
 	$statement->bindValue(':name', $eventName);
 	$statement->bindValue(':event_date', $eventDate);
 	$statement->bindValue(':description', $description);
-	$statement->execute();
+	$result = $statement->execute();
+    echo "/n trying to execute - $result";
     
 }
 catch (Exception $ex)
