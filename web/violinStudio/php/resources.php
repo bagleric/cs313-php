@@ -49,7 +49,7 @@ session_start();
 }
 catch (PDOException $ex)
 {
-	echo "Error with DB. Details: $ex";
+	 //echo "Error with DB. Details: $ex";
 	die();
 }
                     ?> 

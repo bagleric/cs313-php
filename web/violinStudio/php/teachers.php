@@ -51,6 +51,7 @@ catch (Exception $ex)
                     <li class="nav-item"><a class="nav-link" href="./philosophy.php">Philosophy</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="./events.php">Events</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="./resources.php">Resources</a> </li>
+                    <li class="nav-item navbar-right"> <a class="nav-link" href="./createLogin.php">Create a login</a> </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="../index.php">Studio Home</a> </li>

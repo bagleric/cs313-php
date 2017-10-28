@@ -33,7 +33,7 @@ catch (Exception $ex)
 {
 	// Please be aware that you don't want to output the Exception message in
 	// a production environment
-	echo "Error with DB. Details: $ex";
+    //echo "Error with DB. Details: $ex";
 	die();
 }
 // finally, redirect them to a new page to actually show the topics
