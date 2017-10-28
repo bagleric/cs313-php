@@ -1,5 +1,10 @@
 <?php 
-    session_start();
+session_start();
+
+if(!isset($_SESSION["authenticated"]) || $_SESSION["authenticated"] != true) {
+    header('Location: signIn.php');
+    die();
+}
 $email = $_SESSION["email"]; ?>
     <!DOCTYPE html>
     <html lang="en">

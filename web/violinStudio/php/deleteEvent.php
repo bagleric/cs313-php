@@ -17,6 +17,7 @@ $id = $_POST['event'];
         if ($result){
             $row = $statement->fetch();
             header('Location: events.php');
+            die();
         }
 }
 catch (Exception $ex)

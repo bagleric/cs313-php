@@ -11,7 +11,6 @@ $preDescription = $_POST['description'];
 $eventDate = "$year-$month-$day"; 
 $description = $startTime . '-' . $endTime . '<br/>' . $preDescription;
 
-// TODO put additional checks here to verify that all this data is actually provided
 require("dbconnect.php");
 $db = get_db();
 
@@ -31,15 +30,9 @@ try
 }
 catch (Exception $ex)
 {
-	// Please be aware that you don't want to output the Exception message in
-	// a production environment
     //echo "Error with DB. Details: $ex";
 	die();
 }
-// finally, redirect them to a new page to actually show the topics
 header("Location: teachers.php");
-die(); // we always include a die after redirects. In this case, there would be no
-       // harm if the user got the rest of the page, because there is nothing else
-       // but in general, there could be things after here that we don't want them
-       // to see.
+die(); 
 ?>

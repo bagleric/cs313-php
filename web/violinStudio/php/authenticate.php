@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"] == true){
     //send them to the teacher page.
     header("Location: teachers.php");
+    die();
 }
 
 else if (!isset($_SESSION["authenticated"])){

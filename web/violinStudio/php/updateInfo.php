@@ -19,6 +19,7 @@ session_start();
             $_SESSION["fullname"] = $first_name . " " . $last_name;
             $_SESSION["email"] = $email;
             header('Location: teachers.php');
+            die();
         }
 }
 catch (Exception $ex)
