@@ -39,17 +39,30 @@ session_start();
              try
 {
 	// prepare the statement
-	$statement = $db->prepare('SELECT name, event_date, description FROM studio_events');
+	$statement = $db->prepare('SELECT id, name, event_date, description FROM studio_events');
 	$statement->execute();
 	// Go through each result
+    $count = 0;
 	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
-    echo '<div class="col-md-5 big-square"><p><strong>' . $row['name']. ' - ' . $row['event_date'] . '</strong></p><p>' . $row['description']. '</p></div>';
+        $count++;
+    echo '<div class="col-md-5 big-square"><p><strong>' . $row['name']. ' - ' . $row['event_date'] . '</strong></p><p>' . $row['description']. '</p>';
+        
+        if($_SESSION["authenticated"]==true){
+            echo '<form method="post" action="deleteEvent.php"><div><input type="text" class="form-control invisible" id="event'. $row['id'] . '" name="event" placeholder="'. $row['id'] . '" value="'. $row['id'] . '"/></div><button type="submit" class="btn primary-color">Delete</button></form></div>';
+            
+            
+        }else{
+            echo '</div>';
+        }
 	}
+    if($count == 0){
+        echo '<div class="big-square"><h4>There are no upcoming events.</h4></div>';
+    }
 }
 catch (PDOException $ex)
 {
-	echo "Error with DB. Details: $ex";
+	//echo "Error with DB. Details: $ex";
 	die();
 }
 ?>

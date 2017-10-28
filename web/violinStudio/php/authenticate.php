@@ -17,7 +17,7 @@ else if (!isset($_SESSION["authenticated"])){
         require("dbconnect.php");
         $db = get_db();
         
-        $query = 'SELECT email, user_password FROM teacher WHERE email = :email';
+        $query = 'SELECT id, email, user_password FROM teacher WHERE email = :email';
         
         $statement = $db->prepare($query);
         $statement->bindValue(':email', $email);
@@ -25,7 +25,6 @@ else if (!isset($_SESSION["authenticated"])){
         $result = $statement->execute();
         if ($result){
             $row = $statement->fetch();
-            echo "password $password";
             $dbPass = $row['user_password'];
             if(password_verify($password, $dbPass)){
                 $_SESSION["authenticated"] = true;
@@ -33,7 +32,7 @@ else if (!isset($_SESSION["authenticated"])){
                 header("Location: teachers.php");
                 die();
             }else{
-                echo 'it failed';
+                header("Location: error.php");
                 die();
             }
         }

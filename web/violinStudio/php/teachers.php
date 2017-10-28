@@ -6,9 +6,27 @@ if(!isset($_SESSION["authenticated"]) || $_SESSION["authenticated"] != true) {
     header('Location: signIn.php');
     die();
 }
-
+$email = $_SESSION["email"];
 require("dbconnect.php");
 $db = get_db();
+try{
+    $query = 'SELECT first_name, last_name FROM teacher WHERE email = :email';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email);
+
+    $result = $statement->execute();
+    if ($result){
+        $row = $statement->fetch();
+        $_SESSION["fullname"] = $row['first_name'] . " " . $row['last_name'];
+        $_SESSION["email"] = $email;
+    }
+}
+catch (Exception $ex)
+{
+	//echo "Error with DB. Details: $ex";
+	die();
+}
+
 
 ?>
     <!DOCTYPE html>
@@ -25,25 +43,28 @@ $db = get_db();
     </head>
 
     <body>
-        <nav class=" navbar navbar-expand-lg navbar-light bg-light "> <a class="navbar-brand" href="../index.php">De Violín | Maestro</a>
+        <nav class=" navbar navbar-expand-lg navbar-light bg-light "> <a class="navbar-brand" href="../index.php">De Violín</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="teachers.php">Teacher Home <span class="sr-only">(current)</span></a> </li>
-                    <!--                    <li class="nav-item"> <a class="nav-link" href="#">Philosophy</a> </li>-->
-                    <!--                    <li class="nav-item"> <a class="nav-link" href="#">Events</a> </li>-->
-                    <!--                    <li class="nav-item"> <a class="nav-link" href="#">Students</a> </li>-->
+                    <li class="nav-item"><a class="nav-link" href="./philosophy.php">Philosophy</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="./events.php">Events</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="./resources.php">Resources</a> </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="../index.php">Studio Home</a> </li>
-                    <li class="nav-item navbar-right"> <a class="nav-link" href="signOut.php">Sign Out</a> </li>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle primary-color" type="button" id="userInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php echo $_SESSION["fullname"]?>
+                        </button>
+                        <div class="dropdown-menu primary-color" aria-labelledby="userInfoButton"> <a class="dropdown-item" href="updateUserInfoForm.php">Update Info</a> <a class="dropdown-item" href="signOut.php">Sign Out</a></div>
+                        <!--                        -->
+                    </div>
                 </ul>
             </div>
         </nav>
         <div class="container">
-            <div class="navbar-right">
-                <?php echo "Welcome ". $_SESSION["email"];?>
-            </div>
             <div class="row">
                 <div id="updateOptions" data-children=".item">
                     <div class="item big-square">

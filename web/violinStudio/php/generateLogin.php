@@ -18,6 +18,14 @@ if(password_verify($password, $passwordHash)){
 
 try
 {
+    
+//    $query1 = 'SELECT email FROM teacher WHERE email = :email';
+//    $checkEmail = $db->prepare($query1);
+//    
+//    $checkEmail->bindValue(':email',$username);
+//    $result = $checkEmail->execute();
+//    echo "Result: $result";
+//    
 	// Add the Scripture
 	// We do this by preparing the query with placeholder values
 	$query = 'INSERT INTO teacher(email, first_name, last_name, user_password) VALUES (:email, :first_name, :last_name, :password)';
@@ -31,14 +39,11 @@ try
 	$statement->bindValue(':first_name', $firstName);
 	$statement->bindValue(':last_name', $lastName);
 	$statement->bindValue(':password', $passwordHash);
-	$statement->execute();
-//    echo "Success Writing to database";
+	$result = $statement->execute();
 }
 catch (Exception $ex)
 {
-	// Please be aware that you don't want to output the Exception message in
-	// a production environment
-	echo "Error with DB. Details: $ex";
+	header("Location:error.php");
 	die();
 }
 header("Location:signIn.php");

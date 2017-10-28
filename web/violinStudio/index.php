@@ -75,7 +75,7 @@ session_start();
 }
 catch (PDOException $ex)
 {
-	echo "Error with DB. Details: $ex";
+	//echo "Error with DB. Details: $ex";
 	die();
 }
                     ?></a>
@@ -103,7 +103,7 @@ catch (PDOException $ex)
 }
 catch (PDOException $ex)
 {
-	echo "Error with DB. Details: $ex";
+	//echo "Error with DB. Details: $ex";
 	die();
 }
                     ?> </a>
